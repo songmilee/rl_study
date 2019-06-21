@@ -2,33 +2,59 @@
 
 ---
 
+html header: <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
 * cf) Q-learning이 학습되는 걸 시각적으로 보여주는 사이트
     - http://computingkoreanlab.com/app/jAI/jQLearning/
 
 * Q-table의 한계
     - state, action이 많아지면 Q-table이 커지게 되고 계산양이 엄청나게 많아짐
     - 확장성의 제약이 많음
-    - 다양한 문제를 해결하기 위해 **Q-Network를 사용**
+    - 다양한 문제를 해결하기 위해 **Deep Q-Network를 사용**
 
-### Q-Network
-!['Q-network_1'](https://t1.daumcdn.net/cfile/tistory/99B0E7375B4845E917)
-!['Q-network_2'](https://t1.daumcdn.net/cfile/tistory/99C6FC4F5B48466020)
-- Input (x) : state, Ouput (y) : 해당 state에서 각 action을 취할 때 reward 값 (Q-value)
-- 본 네트워크를 통해 Optimal한 Q-value를 알아내는 것이 목표
-- 현재의 Weight와 Bias 값을 토대로 Q 값을 업데이트에 사용
+## Deep Q-Network
 
-### Deep Q-Network
-- DQN?
-    - Convolution Networks를 이용해 learning 하는 방법을 의미
-    - 아타리 게임의 raw pixel을 인풋으로 하여 value function을 출력으로 내고 있음
+- !['Deep Neural Network'](https://poqw.github.io/assets/images/dqn_6.png)
+
+- 전처리
+    - Input으로 Atari 게임의 이미지를 사용
+        - 원본 자체는 크기가 커서 Image resize, gray scale 등의 처리가 필요
+        - 연속된 상태의 이미지를 이용 = **State**
+
+- 모델 최적화
+    - State와 Action을 넣어 네트워크를 구성하게 되면 계산 비용이 상당히 커짐
+    - 모델을 아래와 같이 변형
+    - !['Model change'](https://poqw.github.io/assets/images/dqn_9.png)
+    - State로부터 Q-value를 계산하여 Q-value가 최대가 되는 Action을 선택
+
+- CNN
+    - !['cnn model'](https://poqw.github.io/assets/images/dqn_10.png)
+        - Q를 저장할 용도로 CNN을 활용
+        - Input : 전처리 이미지 , Output : Q-value
+    - Q Network 상에서의 CNN 구성
+        - layer : convoultion 1, convolution 2, convolution 3, fully connected 1, fully connected 2
 
 
-- DQN 모델 아키텍쳐
-!['DQN Architecture'](https://t1.daumcdn.net/cfile/tistory/99FE4F485B98F7C432)
-    - CNN을 이용한 구조를 갖음
-        - 고차원 데이터를 쉽게 표현할 수 있음
-    - CNN과 달리 pooling layer 단계가 없음
-        - pooling 하게 되면 데이터를 잃게 되기 때문에 데이터가 중요한 DQN에서 pooling 단계가 없음
+- Q Optimizer(최적화)
+    - RMSProp (Deep Mind 사용)를 사용해 가중치(Θ) 업데이트
+- Explotration Rate (탐험률)
+    - \\(ε\\) = 기존의 정해진 방향이 아닌 새로운 방향을 랜덤으로 선택할 수 있도록 함
+- Loss Function (비용함수)
+    - 2개의 CNN을 사용하여 \\(Q^2\\), \\(Q\\)을 저장
+        - 네트워크 가중치에 의존하는 문제를 방지하기 위해 사용
+        - \\(Q^2\\) : 실제 값을 구하기 위해 사용
+        - \\(Q\\) : 기대 값을 구하기 위해 사용
+    - Deep Mind 기준 10000 스탭이 지날 때마다 \\(Q^2\\)의 가중치에 \\(Q\\)의 가중치를 덮어 학습을 진행
+    - \\(cost = (Target(y) - Expect(y))^2\\)
+        - cost를 이용해 \\(Q\\) 업데이트
+
+- Experiance Replay
+    - 새로운 경험을 곧바로 학습하지 않고 Experience Replay에 저장
+    - 학습시 replay를 이용해 학습
+        - Random Sampling한 Mini-batch를 구성해 학습
+        - 데이터 순서를 무작위로 하여 데이터 간 상호관계를 없애는 것
+
 
 - DQN 알고리즘
 ```
@@ -47,7 +73,6 @@
 9. squared error를 신경망의 손실함수로 사용해 Q-network를 학습
 10. 학습 상태 변경
 ```
-
 - DQN 이슈
     - 샘플 데이터가 다양하지 않고 서로 연관성이 있음
     - Target이 변화함
@@ -62,9 +87,6 @@
         - 타겟에 대한 네트워크를 따로 분리해 구성
 
 
-
-
-
 ### Reference
 1. https://hunkim.github.io/ml/RL/rl06.pdf
 2. http://www.modulabs.co.kr/RL4RWS/18868
@@ -73,3 +95,4 @@
 5. https://hunkim.github.io/ml/RL/rl07.pdf
 6. https://sumniya.tistory.com/18
 7. https://www.popit.kr/torch-dqn-%EA%B0%95%ED%99%94%ED%95%99%EC%8A%B5-%EC%86%8C%EA%B0%9C/
+8. https://poqw.github.io/DQN/
