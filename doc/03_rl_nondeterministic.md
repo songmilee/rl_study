@@ -3,8 +3,15 @@
 ---
 
 ### Deterministic & Stochastic
+
+<img src="../asset/img/deterministic.png" style="width:100%; height:250px;" alt="deterministic model">
+<center>[그림 1] Deterministic Model - Agent가 주어진 명령에 따라 움직일 수 있는 환경  </center>
+
 - Deterministic Model
     - 모델의 출력 값이 초기의 상태 값과 매개변수 값을 통해 결정됨
+
+<img src="../asset/img/stochastic.png" style="width:100%; height:270px;" alt="stochastic model">
+<center>[그림 2] Stochastic Model - Agent가 주어진 명령에 따라 움직일 수도 있고 움직이지 못할 수도 있는 환경</center>
 
 - Stochastic Model
     - 랜덤한 값을 가지고 있음
