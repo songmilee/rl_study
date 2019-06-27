@@ -1,8 +1,8 @@
-[ tag : 강화학습]
+[ tag : 강화학습 ]
 
 ---
 
-html header: <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
 
 * cf) Q-learning이 학습되는 걸 시각적으로 보여주는 사이트
