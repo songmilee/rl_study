@@ -4,7 +4,7 @@
 
 ### Reinforcement Learning의 학습 방식
 1. Value 기반 방식
-    - !['value based rl'](../asset/img/value_based_rl.png)
+    - !['value based rl'](http://10.231.238.12:31111/smlee/rl-tutorial/raw/master/asset/img/value_based_rl.PNG)
     - Q-value 값이 가장 클 것이라 예상되는 Action을 선택하는 방식
 2. Policy 기반 방식
     - Value 학습이 아닌 Policy를 학습 시키는 것
@@ -21,7 +21,7 @@
 
 ### Policy Gradeint 장단점
 <center>
-<img src="../asset/img/policy_math.png">
+<img src="http://10.231.238.12:31111/smlee/rl-tutorial/raw/master/asset/img/policy_math.PNG">
 
 [그림 ] Policy의 수식
 </center>
@@ -54,11 +54,11 @@
 
 ### 필요한 사전 지식
 - Score Function : Policy에 log를 취한 형태
-    - !['score function'](../asset/img/score_function.png)
+    - !['score function'](http://10.231.238.12:31111/smlee/rl-tutorial/raw/master/asset/img/score_function.PNG)
     - 정책이 0이 아닌 값을 갖고 있어도 미분이된다고 가정
     - 우도함수비율에(Likelihood Ratio) 따라 score function을 도출
 - Policy Gradient Theorem
-    - !['policy gradient theorem'](../asset/img/policy_gradient_theorem.png)
+    - !['policy gradient theorem'](http://10.231.238.12:31111/smlee/rl-tutorial/raw/master/asset/img/policy_gradient_theorem.PNG)
     - Multi-step MDP에 대해 우도비율 접근법(Likelihood ratio approach)를 일반화한 것
     - 순간 발생하는 reward r을 long-term value Q^π(s,a)로 치환
     - 시작 상태, 평균 reward, 평균 값의 objective function에 적용됨
