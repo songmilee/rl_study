@@ -93,7 +93,7 @@
         function Reinforcement:
             Θ 초기화
             for (s, a) in episode:
-                for t in (1, t-1):
+                for t in (1, T-1):
                     Θ = Θ + α*∇_Θlog π_Θ(s_t, a_t) * v_t
 
             return Θ
