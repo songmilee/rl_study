@@ -107,12 +107,12 @@
 ```
 
 ### 알고리즘 : EPSGREEDY(x, B, ε, Q)
-'''
+```
 if random() < ε:
     return B에서 랜덤 요소 선택
 else:
     return argmax_m Q(x, m) (m은 B에 포함되는 원소)
-'''
+```
 
 
 
